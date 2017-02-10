@@ -35,7 +35,7 @@ Add django_fine_uploader's URL patterns:
 
 And finally your html file:
 
-.. code-block:: python
+.. code-block:: html
 
     <!DOCTYPE html>
     <html>
