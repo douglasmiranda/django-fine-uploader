@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_fine_uploader',
+    'myapp',
+    'django_fine_uploader.apps.DjangoFineUploaderConfig',
 
     # if your app has other dependencies that need to be added to the site
     # they should be added here
@@ -53,7 +54,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'example.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'example.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -118,3 +119,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# CUSTOM CONFIG:
+# Media URL
+MEDIA_URL = '/media/'
+# Media root
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Uploads Directory
+# FU_FILE_STORAGE = 'django.core.files.storage.DefaultStorage'
+# FU_UPLOAD_DIR = 'uploads/'
+# FU_CHUNKS_DIR = 'chunks/'
+# FU_CONCURRENT_UPLOADS = True
+# FU_CHUNKS_DONE_PARAM_NAME = 'done'

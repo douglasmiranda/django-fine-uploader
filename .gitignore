@@ -45,3 +45,9 @@ output/*/index.html
 
 # Sphinx
 docs/_build
+
+# Local dev
+*db.sqlite3
+# simbolic link I use when editing the example
+example/django_fine_uploader
+example/media/*

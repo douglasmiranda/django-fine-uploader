@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/file-uploader/5.13.0/fine-uploader-gallery.min.css" rel="stylesheet">
+  <script type="text/template" id="qq-template">
+    <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here">
+      <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+      </div>
+      <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+        <span class="qq-upload-drop-area-text-selector"></span>
+      </div>
+      <div class="qq-upload-button-selector qq-upload-button">
+        <div>Upload a file</div>
+      </div>
+      <span class="qq-drop-processing-selector qq-drop-processing">
+        <span>Processing dropped files...</span>
+        <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+      </span>
+      <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+        <li>
+          <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+          <div class="qq-progress-bar-container-selector qq-progress-bar-container">
+            <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+          </div>
+          <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+          <div class="qq-thumbnail-wrapper">
+            <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
+          </div>
+          <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
+          <button type="button" class="qq-upload-retry-selector qq-upload-retry">
+            <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+              Retry
+          </button>
+
+          <div class="qq-file-info">
+            <div class="qq-file-name">
+              <span class="qq-upload-file-selector qq-upload-file"></span>
+              <span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"></span>
+            </div>
+            <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+            <span class="qq-upload-size-selector qq-upload-size"></span>
+            <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
+              <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
+            </button>
+            <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
+              <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+            </button>
+            <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
+              <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+            </button>
+          </div>
+        </li>
+      </ul>
+
+      <dialog class="qq-alert-dialog-selector">
+        <div class="qq-dialog-message-selector"></div>
+        <div class="qq-dialog-buttons">
+          <button type="button" class="qq-cancel-button-selector">Close</button>
+        </div>
+      </dialog>
+
+      <dialog class="qq-confirm-dialog-selector">
+        <div class="qq-dialog-message-selector"></div>
+        <div class="qq-dialog-buttons">
+          <button type="button" class="qq-cancel-button-selector">No</button>
+          <button type="button" class="qq-ok-button-selector">Yes</button>
+        </div>
+      </dialog>
+
+      <dialog class="qq-prompt-dialog-selector">
+        <div class="qq-dialog-message-selector"></div>
+        <input type="text">
+        <div class="qq-dialog-buttons">
+          <button type="button" class="qq-cancel-button-selector">Cancel</button>
+          <button type="button" class="qq-ok-button-selector">Ok</button>
+        </div>
+      </dialog>
+    </div>
+  </script>
+  <style type="text/css">
+    body {
+      font-family: Helvetica Neue, Helvetica, Arial;
+    }
+    .main {
+      margin: 20px 40px;
+    }
+    h1 {
+      font-size: 22px;
+    }
+    h2 {
+      color: #0a798c;
+      font-size: 16px;
+      font-weight: normal;
+    }
+    hr {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px solid #eee
+    }
+    .links-container {
+      background: #f4f4f4;
+      width: auto;
+      min-height: 50px;
+      margin-top: 20px;
+      border: solid 1px #eee;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .links-container h3 {
+      font-size: 16px;
+      font-weight: normal;
+      margin-top: 0;
+    }
+  </style>
+  <title>Django Fine Uploader</title>
+</head>
+<body>
+  <div class="main">
+    <section>
+      <h1>Using the django-fine-uploader default view</h1>
+      <h2>Default Concurrent Chunked Upload</h2>
+      <div id="default-concurrent-chunked-uploader"></div>
+    </section>
+    <hr>
+    <section>
+      <h1>Using the <i>example.myapp.view.*</i> views</h1>
+      <h2>Concurrent Chunked Upload</h2>
+      <div id="uploader-1"></div>
+      <hr>
+      <h2><strong>NOT</strong> Concurrent Chunked Upload</h2>
+      <div id="uploader-2"></div>
+      <hr>
+      <h2>Custom FormView</h2>
+      <p>
+        Go to <i>example.myapp.views.SimpleCustomUploaderView</i> and you can see
+        how you can create your own `FormView` and upload with fineuploader
+        handler.
+      </p>
+      <div id="uploader-3"></div>
+      <hr>
+      <h2>Extending <i>django_fine_uploader.views.FineUploaderView</i></h2>
+      <p>
+        Check <i>example.myapp.views.CustomFineUploaderView</i> and
+        <i>var uploader_4</i> on this html file.
+      </p>
+      <p>
+        In this upload I'll not send the CSRFToken, so we can see an example of
+        applying decorators on <i>`dispatch`</i>.
+      </p>
+      <p>
+        When It's finished, append the links of uploaded files on <i>#files</i>.
+      </p>
+      <p>
+        On <i>CustomFineUploaderView.form_valid</i> we save the uploaded file in
+        database using the <i>FineFile</i> model.
+      </p>
+      <div id="uploader-4"></div>
+      <div class="links-container">
+        <h3>Uploaded Files</h3>
+        <ol id="links"></ol>
+      </div>
+    </section>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/file-uploader/5.13.0/fine-uploader.min.js"></script>
+  <!-- Cookies.js, so we can get the CSRFToken cookie -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js" charset="utf-8"></script>
+  <script>
+    var default_concurrent_chunked_uploader = new qq.FineUploader({
+      debug: true,
+      element: document.getElementById('default-concurrent-chunked-uploader'),
+      request: {
+        endpoint: '{% url 'django_fine_uploader:upload' %}',
+        customHeaders: {
+          'X-CSRFToken': Cookies.get('csrftoken')
+        }
+      },
+      chunking: {
+        enabled: true,
+        concurrent: {
+            enabled: true
+        },
+        success: {
+          endpoint: '{% url 'django_fine_uploader:upload' %}?done'
+        }
+      }
+    });
+
+    var uploader_1 = new qq.FineUploader({
+      debug: true,
+      element: document.getElementById('uploader-1'),
+      request: {
+        endpoint: '{% url 'uploader-1' %}',
+        customHeaders: {
+          'X-CSRFToken': Cookies.get('csrftoken')
+        }
+      },
+      chunking: {
+        enabled: true,
+        concurrent: {
+            enabled: true
+        },
+        success: {
+          endpoint: '{% url 'uploader-1' %}?done'
+        }
+      },
+    });
+
+    var uploader_2 = new qq.FineUploader({
+      debug: true,
+      element: document.getElementById('uploader-2'),
+      request: {
+        endpoint: '{% url 'uploader-2' %}',
+        customHeaders: {
+          'X-CSRFToken': Cookies.get('csrftoken')
+        }
+      },
+      chunking: {
+        enabled: true
+      }
+      // If you don't want concurrent uploads, you don't even need
+      // to set a success url (success.endpoint).
+    });
+
+    var uploader_3 = new qq.FineUploader({
+      debug: true,
+      element: document.getElementById('uploader-3'),
+      request: {
+        endpoint: '{% url 'uploader-3' %}',
+        customHeaders: {
+          'X-CSRFToken': Cookies.get('csrftoken')
+        }
+      }
+    });
+
+    var uploader_4 = new qq.FineUploader({
+      debug: true,
+      element: document.getElementById('uploader-4'),
+      request: {
+        endpoint: '{% url 'uploader-4' %}'
+      },
+      chunking: {
+        enabled: true,
+        concurrent: {
+            enabled: true
+        },
+        success: {
+          endpoint: '{% url 'uploader-4' %}?done'
+        }
+      },
+      callbacks: {
+        onComplete: function(id, filename, responseJSON) {
+          console.log(id);
+          console.log(filename);
+          console.log(responseJSON);
+
+          var links = document.querySelector('#links');
+          var li = links.appendChild(document.createElement('li'));
+          a = li.appendChild(document.createElement('a'));
+          a.textContent = filename;
+          a.href = responseJSON.file_url;
+          a.target = '_blank';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
