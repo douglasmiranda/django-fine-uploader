@@ -6,6 +6,10 @@ Simple, Chunked and Concurrent uploads with Django + Fine Uploader
 
 This is an alpha version.
 
+We have a example_ project. Just `git clone` the django-fine-uploader repository and follow the instructions.
+
+.. _example: https://github.com/douglasmiranda/django-fine-uploader/tree/master/example
+
 Quickstart
 ----------
 
@@ -156,9 +160,12 @@ Features
 * Simple Upload
 * Chunked Upload
 * Concurrent Chunked Upload
-* Ready to use upload endpoint
-* Easy extend FineUploaderView (FormView)
+* `Ready to use upload endpoint`_
+* `Easy extend FineUploaderView`_ (FormView)
 * Or create your custom view and use the Django Fine Uploader handler
+
+.. _`Ready to use upload endpoint`: https://github.com/douglasmiranda/django-fine-uploader/blob/master/django_fine_uploader/fineuploader.py
+.. _`Easy extend FineUploaderView`: https://github.com/douglasmiranda/django-fine-uploader/blob/master/django_fine_uploader/views.py
 
 TODO
 ----
