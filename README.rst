@@ -2,7 +2,10 @@
 Django Fine Uploader
 =============================
 
-Simple, Chunked and Concurrent uploads with Django + Fine Uploader
+Simple, Chunked and Concurrent uploads with Django_ + `Fine Uploader`_
+
+.. _Django: https://www.djangoproject.com
+.. _`Fine Uploader`: http://fineuploader.com
 
 This is an alpha version.
 
