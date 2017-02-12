@@ -51,3 +51,4 @@ docs/_build
 # simbolic link I use when editing the example
 example/django_fine_uploader
 example/media/*
+tmp/
