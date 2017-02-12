@@ -8,7 +8,7 @@ from . import settings
 from . import utils
 
 
-class SimpleFineUploader(object):
+class BaseFineUploader(object):
     def __init__(self, data, *args, **kwargs):
         """About Django file uploads:
         https://docs.djangoproject.com/en/dev/topics/http/file-uploads/
@@ -41,9 +41,7 @@ class SimpleFineUploader(object):
         return file_storage()
 
     def save(self):
-        if not self.finished:
-            self.real_path = self.storage.save(self._full_file_path, self.file)
-        return self.real_path
+        raise NotImplementedError
 
     def save_on_storage(self, storage_class):
         """So, here is what I'm thinking:
@@ -65,7 +63,14 @@ class SimpleFineUploader(object):
         return self.storage.url(self.real_path)
 
 
-class ChunkedFineUploader(SimpleFineUploader):
+class SimpleFineUploader(BaseFineUploader):
+    def save(self):
+        if not self.finished:
+            self.real_path = self.storage.save(self._full_file_path, self.file)
+        return self.real_path
+
+
+class ChunkedFineUploader(BaseFineUploader):
     """If you want to know more about chunking with fine uploader:
     http://docs.fineuploader.com/branch/master/features/chunking.html
     And concurrent chunking setting see:
