@@ -59,7 +59,6 @@ class BaseFineUploader(object):
         """
         if not self.finished:
             return None
-        # relative_path = self.real_path.replace(self.storage.location, '')
         return self.storage.url(self.real_path)
 
 
