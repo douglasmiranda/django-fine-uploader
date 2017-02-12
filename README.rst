@@ -2,6 +2,15 @@
 Django Fine Uploader
 =============================
 
+.. image:: https://img.shields.io/pypi/v/django-fine-uploader.svg
+    :target: https://pypi.python.org/pypi/django-fine-uploader
+
+.. image:: https://img.shields.io/pypi/l/django-fine-uploader.svg
+    :target: https://pypi.python.org/pypi/django-fine-uploader
+
+.. image:: https://img.shields.io/pypi/wheel/django-fine-uploader.svg
+    :target: https://pypi.python.org/pypi/django-fine-uploader
+
 Simple, Chunked and Concurrent uploads with Django_ + `Fine Uploader`_
 
 .. _Django: https://www.djangoproject.com
@@ -40,7 +49,7 @@ Add django_fine_uploader's URL patterns:
         ...
     ]
 
-And finally your html file: copy from `this gist`_, lots of html to put on our README.
+And finally your html file: copy from `this gist`_. (too much html to put on our README)
 
 .. _`this gist`: https://gist.github.com/douglasmiranda/77da9c801e0cf83357ba51a639372768
 
@@ -60,9 +69,10 @@ Features
 TODO
 ----
 
-* Tests, we need tests
-* Docs
-* Test with some File Storages
+Instead of listing here, check the issues_ and projects_.
+
+.. _issues: https://github.com/douglasmiranda/django-fine-uploader/issues
+.. _projects: https://github.com/douglasmiranda/django-fine-uploader/projects
 
 Running Tests
 -------------
