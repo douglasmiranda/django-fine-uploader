@@ -50,9 +50,8 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
 
-release: clean ## package and upload a release
-	python setup.py sdist upload
-	python setup.py bdist_wheel upload
+release: clean
+	python setup.py release
 
 sdist: clean ## package
 	python setup.py sdist
