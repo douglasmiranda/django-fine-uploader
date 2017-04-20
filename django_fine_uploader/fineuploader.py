@@ -1,5 +1,7 @@
 from django.conf import settings as django_settings
 
+from six.moves import range
+
 from os.path import join
 from io import StringIO
 import shutil
@@ -122,8 +124,8 @@ class ChunkedFineUploader(BaseFineUploader):
         # implement the same behaviour.
         self.real_path = self.storage.save(self._full_file_path, StringIO())
 
-        with self.storage.open(self.real_path, 'w') as final_file:
-            for i in xrange(self.total_parts):
+        with self.storage.open(self.real_path, 'wb') as final_file:
+            for i in range(self.total_parts):
                 part = join(self.chunks_path, str(i))
                 with self.storage.open(part, 'rb') as source:
                     final_file.write(source.read())
