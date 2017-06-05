@@ -99,7 +99,7 @@ class ChunkedFineUploader(BaseFineUploader):
 
     @property
     def chunked(self):
-        return self.total_parts > 1
+        return self.total_parts is not None and self.total_parts > 1
 
     @property
     def is_time_to_combine_chunks(self):
