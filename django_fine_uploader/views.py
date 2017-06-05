@@ -59,7 +59,7 @@ class FineUploaderView(generic.FormView):
         self.process_upload(form)
         return self.make_response({
             'success': True,
-            'uuid': form.cleaned_data['qquuid']
+            'path': self.upload.real_path,
         })
 
     def form_invalid(self, form):
