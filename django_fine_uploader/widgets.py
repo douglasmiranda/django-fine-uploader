@@ -24,7 +24,8 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
         self.ok_label = kwargs.get('ok_label', 'OK')
         self.cancel_label = kwargs.get('cancel_label', 'Cancel')
 
-        self.include_media = kwargs.pop('include_media', True)
+        self.include_js = kwargs.pop('include_js', True)
+        self.include_css = kwargs.pop('include_css', True)
         super(FineUploaderWidget, self).__init__(attrs, **kwargs)
         self.type = 'hidden'
 
@@ -70,14 +71,14 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
 
     @property
     def media(self):
-        if not self.include_media:
-            return forms.Media()
-        return forms.Media(
-            css={
-                'all': ('django_fine_uploader/fine-uploader-gallery.min.css',)
-            },
-            js=(
+        kwargs = {}
+        if self.include_js:
+            kwargs['js'] = (
+                'django_fine_uploader/js.cookie.min.js',
                 'django_fine_uploader/fine-uploader.min.js',
-                'django_fine_uploader/js.cookie.min.js'
             )
-        )
+        if self.include_css:
+            kwargs['css'] = {
+                'all': ('django_fine_uploader/fine-uploader-gallery.min.css',)
+            }
+        return forms.Media(**kwargs)
