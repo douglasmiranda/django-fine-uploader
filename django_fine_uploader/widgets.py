@@ -8,6 +8,7 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
     template_name = 'django_fine_uploader/widget.html'
 
     def __init__(self, attrs=None, **kwargs):
+        self.attrs = attrs or {}
         self.options = kwargs.pop('options', {})
 
         self.allow_delete = kwargs.pop('allow_delete', True)
@@ -26,6 +27,11 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
 
         self.include_js = kwargs.pop('include_js', True)
         self.include_css = kwargs.pop('include_css', True)
+
+        self.itemLimit = self.attrs.get('itemLimit', 0)
+        admin = self.attrs.get('admin', False)
+        if admin:
+            self.input_type = ''
         super(FineUploaderWidget, self).__init__(attrs, **kwargs)
         self.type = 'hidden'
 
@@ -38,7 +44,7 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
             },
             'deleteFile': {
                 'enabled': True,
-                'endpoint':  reverse('django_fine_uploader:delete'),
+                'endpoint': reverse('django_fine_uploader:delete'),
             },
             'chunking': {
                 'enabled': True,
@@ -48,6 +54,9 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
                 'success': {
                     'endpoint': '%s?done' % upload_url
                 }
+            },
+            'validation': {
+                'itemLimit': self.itemLimit
             }
         }
         options.update(self.options)

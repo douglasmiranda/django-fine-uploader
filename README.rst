@@ -65,6 +65,19 @@ Features
 
 .. _`Ready to use upload endpoint`: https://github.com/douglasmiranda/django-fine-uploader/blob/master/django_fine_uploader/fineuploader.py
 .. _`Easy extend FineUploaderView`: https://github.com/douglasmiranda/django-fine-uploader/blob/master/django_fine_uploader/views.py
+* Widget provided for overriding the FileField
+
+Settings
+----
+If you would like to use the Fineuploader in FileField you could create the forms.FileField and set the widget=FineUploaderWidget. It also supports some attrs for extra settings. Currently it support the following settings.
+
+.. code-block:: python
+
+    widget=FineUploaderWidget(attrs={
+      'admin': True # To show the widget in Admin panel.
+      'itemLimit': 2 # Set the item limit in the FineUploader.
+    })
+
 
 TODO
 ----
