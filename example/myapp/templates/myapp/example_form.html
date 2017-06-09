@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {# Include the jQuery and Media file required by the widget. #}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {{ form.media }}
+    <title></title>
+  </head>
+  <body>
+    <form id="form" enctype="multipart/form-data" action="" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
