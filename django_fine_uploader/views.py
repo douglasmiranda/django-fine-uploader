@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views import generic
+from django.core.cache import cache
 
 import shutil
 from os.path import join
@@ -57,9 +58,13 @@ class FineUploaderView(generic.FormView):
 
     def form_valid(self, form):
         self.process_upload(form)
+        print(form.cleaned_data.get('qqadmin'))
+        if form.cleaned_data.get('qqadmin', False):
+            cache.set(self.upload.uuid, self.upload)
         return self.make_response({
             'success': True,
             'path': self.upload.real_path,
+            'uuid': self.upload.uuid,
         })
 
     def form_invalid(self, form):
@@ -105,9 +110,11 @@ class FineUploaderDeleteView(generic.View):
         """
         file_storage = utils.import_class(settings.FILE_STORAGE)()
         uuid = kwargs.get('uuid')
+        name = kwargs.get('name')
         path = join(settings.UPLOAD_DIR, uuid)
         if file_storage.exists(path):
             full_path = file_storage.path(path)
+            print(full_path)
             try:
                 shutil.rmtree(full_path)
                 return JsonResponse({'success': True, 'uuid': uuid})

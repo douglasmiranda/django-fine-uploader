@@ -80,6 +80,7 @@
 </script>
 <script>
 $(document).ready(function() {
+    var djfuAdmin = {{ admin|safe }};
     var djfuOptions = {{ options|safe }};
     djfuOptions.element = $('#{{ widget.name }}_uploader')[0];
     // Set the CSRF token for upload and delete calls
@@ -97,7 +98,7 @@ $(document).ready(function() {
                 $('<input type="hidden"/>').attr({
                     'name': '{{ widget.name }}',
                     'id': 'id_{{ widget.name }}_' + id,
-                    'value': responseJson.path
+                    'value': djfuAdmin ? responseJson.uuid : responseJson.path
                 })
             );
         },

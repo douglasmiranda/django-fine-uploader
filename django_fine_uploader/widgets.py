@@ -29,17 +29,23 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
         self.include_css = kwargs.pop('include_css', True)
 
         self.itemLimit = self.attrs.get('itemLimit', 0)
-        admin = self.attrs.get('admin', False)
-        if admin:
+        self.admin = self.attrs.get('admin', False)
+        if self.admin:
             self.input_type = ''
         super(FineUploaderWidget, self).__init__(attrs, **kwargs)
         self.type = 'hidden'
 
     def get_context(self, name, value, attrs):
+        # file_value = value
+        if self.admin:
+            value = None
         context = super(FineUploaderWidget, self).get_context(name, value, attrs)
         upload_url = reverse('django_fine_uploader:upload')
         options = {
             'request': {
+                'params': {
+                    'qqadmin': self.admin,
+                },
                 'endpoint': upload_url,
             },
             'deleteFile': {
@@ -59,6 +65,7 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
                 'itemLimit': self.itemLimit
             }
         }
+
         options.update(self.options)
         context.update({
             'options': json.dumps(options),
@@ -75,6 +82,7 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
             'no_label': self.no_label,
             'ok_label': self.ok_label,
             'cancel_label': self.cancel_label,
+            'admin': json.dumps(self.admin),
         })
         return context
 
