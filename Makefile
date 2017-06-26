@@ -1,4 +1,4 @@
-.PHONY: clean-pyc clean-build docs help
+.PHONY: clean-pyc clean-build docs help develop test
 .DEFAULT_GOAL := help
 define BROWSER_PYSCRIPT
 import os, webbrowser, sys
@@ -56,3 +56,10 @@ release: clean
 sdist: clean ## package
 	python setup.py sdist
 	ls -l dist
+
+develop:
+	pip install -q -r requirements.txt
+	pip install -q -e .
+
+test: develop
+	DJANGO_SETTINGS_MODULE=tests.settings py.test tests --cov=django_fine_uploader
