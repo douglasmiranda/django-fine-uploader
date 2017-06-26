@@ -36,7 +36,6 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
         self.type = 'hidden'
 
     def get_context(self, name, value, attrs):
-        # file_value = value
         if self.admin:
             value = None
         context = super(FineUploaderWidget, self).get_context(name, value, attrs)

@@ -10,7 +10,6 @@ from django.test import TestCase, RequestFactory
 from django.test.client import Client
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
-from django.core.cache import cache
 
 from django_fine_uploader import views, settings, fineuploader
 from django_fine_uploader.forms import FineUploaderUploadForm
@@ -41,11 +40,11 @@ class TestDjango_fine_uploader_form(TestCase):
             'qqfile': test_file,
         }
         form = FineUploaderUploadForm(data=form_data, files=form_files)
-        self.assertTrue(form.is_valid())
+        assert form.is_valid() is True
+        # self.assertTrue(form.is_valid())
 
     def test_fineuploaderview_no_admin(self):
         """Test the view with qqadmin is set to False.
-        There should be no cache result.
         """
         test_file = SimpleUploadedFile("test_file.txt", "test".encode())
         post_data = {
@@ -60,6 +59,7 @@ class TestDjango_fine_uploader_form(TestCase):
             post_data['qquuid'],
             post_data['qqfilename']
         )
+
         request = self.factory.post(
             reverse('django_fine_uploader:upload'),
             post_data
@@ -72,16 +72,19 @@ class TestDjango_fine_uploader_form(TestCase):
         else:
             result = json.loads(response.content)
 
-        file_no_cache = cache.get(result['uuid'])
-        cache.delete(result['uuid'])
-        # print(file_cache)
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(result['success'], True)
-        self.assertIsNone(file_no_cache)
-        self.assertTrue(os.path.exists(file_path))
+        print(result)
+        assert response.status_code == 200
+        assert result['success'] == True
+        assert result['path'] == '%s%s/%s' % (settings.UPLOAD_DIR, post_data['qquuid'], post_data['qqfilename'])
+        assert result['uuid'] == post_data['qquuid']
+        assert os.path.exists(file_path) == True
+        # self.assertEqual(response.status_code, 201)
+        # self.assertEqual(result['success'], True)
+        # self.assertTrue(os.path.exists(file_path))
 
     def test_fineuploaderview_admin(self):
+        """Test the view with qqadmin is set to True.
+        """
         test_file = SimpleUploadedFile("test_file.txt", "test".encode())
         post_data = {
             'qqfile': test_file,
@@ -95,6 +98,7 @@ class TestDjango_fine_uploader_form(TestCase):
             post_data['qquuid'],
             post_data['qqfilename']
         )
+        print(reverse('django_fine_uploader:upload'))
         request = self.factory.post(
             reverse('django_fine_uploader:upload'),
             post_data
@@ -107,13 +111,11 @@ class TestDjango_fine_uploader_form(TestCase):
         else:
             result = json.loads(response.content)
 
-        file_cache = cache.get(result['uuid'])
-        cache.delete(result['uuid'])
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(result['success'], True)
-        self.assertIsInstance(file_cache, fineuploader.ChunkedFineUploader)
-        self.assertTrue(os.path.exists(file_path))
+        assert response.status_code == 200
+        assert result['success'] == True
+        assert result['path'] == '%s%s/%s' % (settings.UPLOAD_DIR, post_data['qquuid'], post_data['qqfilename'])
+        assert result['uuid'] == post_data['qquuid']
+        assert os.path.exists(file_path) == True
 
     def tearDown(self):
         path = '{}/{}'.format(os.getcwd(), settings.UPLOAD_DIR)
