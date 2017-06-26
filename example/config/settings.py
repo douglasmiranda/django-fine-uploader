@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'myapp',
-    'django_fine_uploader.apps.DjangoFineUploaderConfig',
+    'django_fine_uploader',
 
     # if your app has other dependencies that need to be added to the site
     # they should be added here

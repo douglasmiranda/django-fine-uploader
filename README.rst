@@ -1,4 +1,4 @@
-=============================
+ºº=============================
 Django Fine Uploader
 =============================
 
@@ -35,7 +35,7 @@ Add it to your `INSTALLED_APPS`:
 
     INSTALLED_APPS = (
         ...
-        'django_fine_uploader.apps.DjangoFineUploaderConfig',
+        'django_fine_uploader',
         ...
     )
 
@@ -97,6 +97,12 @@ Does the code actually work?
     source <YOURVIRTUALENV>/bin/activate
     (myenv) $ pip install tox
     (myenv) $ tox
+
+OR
+
+::
+
+    make test
 
 Credits
 -------
