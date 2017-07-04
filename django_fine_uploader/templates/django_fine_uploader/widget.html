@@ -77,37 +77,72 @@
             </div>
         </dialog>
     </div>
+    var initializeFineUploader;
 </script>
+<script class="dynamic">
+initializeFineUploader = function () {
+  var djfuAdmin = {{ admin|safe }};
+  var djfuOptions = {{ options|safe }};
+  console.log('{{ widget.name }}');
+  djfuOptions.element = $('#{{ widget.name }}_uploader')[0];
+  // Set the CSRF token for upload and delete calls
+  var djfuCsrfToken = Cookies.get('csrftoken');
+  if (djfuOptions.request && !djfuOptions.request.customHeaders) {
+      djfuOptions.request.customHeaders = {'X-CSRFToken': djfuCsrfToken};
+  }
+  if (djfuOptions.deleteFile && !djfuOptions.deleteFile.customHeaders) {
+      djfuOptions.deleteFile.customHeaders = {'X-CSRFToken': djfuCsrfToken};
+  }
+  // setup callbacks
+  djfuOptions.callbacks = {
+      onComplete: function(id, name, responseJson, xhr) {
+          $('#{{ widget.name }}_hidden_inputs').append(
+              $('<input type="hidden"/>').attr({
+                  'name': '{{ widget.name }}',
+                  'id': 'id_{{ widget.name }}_' + id,
+                  'value': responseJson.path
+              })
+          );
+      },
+      onDeleteComplete: function(id, xhr, isError) {
+          $('#{{ widget.name }}_hidden_inputs #id_{{ widget.name }}_' + id).remove();
+      },
+  };
+  // instanciate FineUploader
+  var djfuUploader = new qq.FineUploader(djfuOptions);
+}
+</script>
+
 <script>
 $(document).ready(function() {
-    var djfuAdmin = {{ admin|safe }};
-    var djfuOptions = {{ options|safe }};
-    djfuOptions.element = $('#{{ widget.name }}_uploader')[0];
-    // Set the CSRF token for upload and delete calls
-    var djfuCsrfToken = Cookies.get('csrftoken');
-    if (djfuOptions.request && !djfuOptions.request.customHeaders) {
-        djfuOptions.request.customHeaders = {'X-CSRFToken': djfuCsrfToken};
-    }
-    if (djfuOptions.deleteFile && !djfuOptions.deleteFile.customHeaders) {
-        djfuOptions.deleteFile.customHeaders = {'X-CSRFToken': djfuCsrfToken};
-    }
-    // setup callbacks
-    djfuOptions.callbacks = {
-        onComplete: function(id, name, responseJson, xhr) {
-            $('#{{ widget.name }}_hidden_inputs').append(
-                $('<input type="hidden"/>').attr({
-                    'name': '{{ widget.name }}',
-                    'id': 'id_{{ widget.name }}_' + id,
-                    'value': responseJson.path
-                })
-            );
-        },
-        onDeleteComplete: function(id, xhr, isError) {
-            $('#{{ widget.name }}_hidden_inputs #id_{{ widget.name }}_' + id).remove();
-        },
-    };
-    // instanciate FineUploader
-    var djfuUploader = new qq.FineUploader(djfuOptions);
+  var djfuAdmin = {{ admin|safe }};
+  var djfuOptions = {{ options|safe }};
+  djfuOptions.element = $('#{{ widget.name }}_uploader')[0];
+  // Set the CSRF token for upload and delete calls
+  var djfuCsrfToken = Cookies.get('csrftoken');
+  if (djfuOptions.request && !djfuOptions.request.customHeaders) {
+      djfuOptions.request.customHeaders = {'X-CSRFToken': djfuCsrfToken};
+  }
+  if (djfuOptions.deleteFile && !djfuOptions.deleteFile.customHeaders) {
+      djfuOptions.deleteFile.customHeaders = {'X-CSRFToken': djfuCsrfToken};
+  }
+  // setup callbacks
+  djfuOptions.callbacks = {
+      onComplete: function(id, name, responseJson, xhr) {
+          $('#{{ widget.name }}_hidden_inputs').append(
+              $('<input type="hidden"/>').attr({
+                  'name': '{{ widget.name }}',
+                  'id': 'id_{{ widget.name }}_' + id,
+                  'value': responseJson.path
+              })
+          );
+      },
+      onDeleteComplete: function(id, xhr, isError) {
+          $('#{{ widget.name }}_hidden_inputs #id_{{ widget.name }}_' + id).remove();
+      },
+  };
+  // instanciate FineUploader
+  var djfuUploader = new qq.FineUploader(djfuOptions);
 });
 </script>
 <div id="{{ widget.name }}_uploader"></div>

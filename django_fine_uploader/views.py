@@ -109,7 +109,6 @@ class FineUploaderDeleteView(generic.View):
         path = join(settings.UPLOAD_DIR, uuid)
         if file_storage.exists(path):
             full_path = file_storage.path(path)
-            print(full_path)
             try:
                 shutil.rmtree(full_path)
                 return JsonResponse({'success': True, 'uuid': uuid})
