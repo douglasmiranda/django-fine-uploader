@@ -66,7 +66,7 @@ class FineUploaderWidget(forms.MultipleHiddenInput):
         }
 
         options.update(self.options)
-        context.update({
+        context['widget'].update({
             'options': json.dumps(options),
             'allow_delete': self.allow_delete,
             'allow_retry': self.allow_retry,

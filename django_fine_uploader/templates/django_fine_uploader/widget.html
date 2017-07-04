@@ -1,10 +1,10 @@
 <script type="text/template" id="qq-template">
-    <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="{{ drop_label }}">
+    <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="{{ widget.drop_label }}">
         <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
             <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
         </div>
         <div class="qq-upload-button-selector qq-upload-button">
-            <div>{{ upload_label }}</div>
+            <div>{{ widget.upload_label }}</div>
         </div>
         <span class="qq-drop-processing-selector qq-drop-processing">
             <span>Processing dropped files...</span>
@@ -24,10 +24,10 @@
                     <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
                 </div>
                 <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
-                {% if allow_retry %}
+                {% if widget.allow_retry %}
                 <button type="button" class="qq-upload-retry-selector qq-upload-retry">
-                    <span class="qq-btn qq-retry-icon" aria-label="{{ retry_label }}"></span>
-                    {{ retry_label }}
+                    <span class="qq-btn qq-retry-icon" aria-label="{{ widget.retry_label }}"></span>
+                    {{ widget.retry_label }}
                 </button>
                 {% endif %}
 
@@ -38,16 +38,16 @@
                     </div>
                     <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
                     <span class="qq-upload-size-selector qq-upload-size"></span>
-                    {% if allow_delete %}
+                    {% if widget.allow_delete %}
                     <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
-                        <span class="qq-btn qq-delete-icon" aria-label="{{ delete_label }}"></span>
+                        <span class="qq-btn qq-delete-icon" aria-label="{{ widget.delete_label }}"></span>
                     </button>
                     {% endif %}
                     <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
-                        <span class="qq-btn qq-pause-icon" aria-label="{{ pause_label }}"></span>
+                        <span class="qq-btn qq-pause-icon" aria-label="{{ widget.pause_label }}"></span>
                     </button>
                     <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
-                        <span class="qq-btn qq-continue-icon" aria-label="{{ continue_label }}"></span>
+                        <span class="qq-btn qq-continue-icon" aria-label="{{ widget.continue_label }}"></span>
                     </button>
                 </div>
             </li>
@@ -56,15 +56,15 @@
         <dialog class="qq-alert-dialog-selector">
             <div class="qq-dialog-message-selector"></div>
             <div class="qq-dialog-buttons">
-                <button type="button" class="qq-cancel-button-selector">{{ close_label }}</button>
+                <button type="button" class="qq-cancel-button-selector">{{ widget.close_label }}</button>
             </div>
         </dialog>
 
         <dialog class="qq-confirm-dialog-selector">
             <div class="qq-dialog-message-selector"></div>
             <div class="qq-dialog-buttons">
-                <button type="button" class="qq-cancel-button-selector">{{ no_label }}</button>
-                <button type="button" class="qq-ok-button-selector">{{ yes_label }}</button>
+                <button type="button" class="qq-cancel-button-selector">{{ widget.no_label }}</button>
+                <button type="button" class="qq-ok-button-selector">{{ widget.yes_label }}</button>
             </div>
         </dialog>
 
@@ -72,8 +72,8 @@
             <div class="qq-dialog-message-selector"></div>
             <input type="text">
             <div class="qq-dialog-buttons">
-                <button type="button" class="qq-cancel-button-selector">{{ cancel_label }}</button>
-                <button type="button" class="qq-ok-button-selector">{{ ok_label }}</button>
+                <button type="button" class="qq-cancel-button-selector">{{ widget.cancel_label }}</button>
+                <button type="button" class="qq-ok-button-selector">{{ widget.ok_label }}</button>
             </div>
         </dialog>
     </div>
@@ -81,8 +81,8 @@
 </script>
 <script class="dynamic">
 initializeFineUploader = function () {
-  var djfuAdmin = {{ admin|safe }};
-  var djfuOptions = {{ options|safe }};
+  var djfuAdmin = {{ widget.admin|safe }};
+  var djfuOptions = {{ widget.options|safe }};
   console.log('{{ widget.name }}');
   djfuOptions.element = $('#{{ widget.name }}_uploader')[0];
   // Set the CSRF token for upload and delete calls
@@ -115,8 +115,8 @@ initializeFineUploader = function () {
 
 <script>
 $(document).ready(function() {
-  var djfuAdmin = {{ admin|safe }};
-  var djfuOptions = {{ options|safe }};
+  var djfuAdmin = {{ widget.admin|safe }};
+  var djfuOptions = {{ widget.options|safe }};
   djfuOptions.element = $('#{{ widget.name }}_uploader')[0];
   // Set the CSRF token for upload and delete calls
   var djfuCsrfToken = Cookies.get('csrftoken');
