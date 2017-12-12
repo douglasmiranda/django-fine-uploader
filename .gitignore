@@ -52,3 +52,6 @@ docs/_build
 example/django_fine_uploader
 example/media/*
 tmp/
+
+# MacOS
+.DS_Store

@@ -8,9 +8,12 @@
     <title></title>
   </head>
   <body>
+    <h1>This example using the widget FineUploaderWidget for the form.</h1>
+    <h2>Check forms.py and example_form.html for how to use the widget for the form field.</h2>
     <form id="form" enctype="multipart/form-data" action="" method="post">
-      {% csrf_token %}
-      {{ form }}
+        {# Include the CSRFToken for form submit. #}
+        {% csrf_token %}
+        {{ form }}
       <input type="submit" value="Submit" />
     </form>
   </body>

@@ -87,5 +87,7 @@ class CustomFineUploaderView(FineUploaderView):
 
 
 class ExampleWidgetView(generic.FormView):
+    """Example of using the form_class using the FineUploaderWidget.
+    """
     template_name = 'myapp/example_form.html'
     form_class = FileFieldWithFineUploaderForm

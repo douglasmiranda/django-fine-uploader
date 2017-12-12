@@ -1,6 +1,7 @@
 import os
 import shutil
 
+from django import forms
 from django.db import models
 from django.db.models import FileField
 from django.contrib import admin
@@ -42,6 +43,9 @@ class FineFileAdmin(admin.ModelAdmin):
                 print(file_fields_name)
                 for name in file_fields_name:
                     file_uploader = cache.get(request.POST.get(name))
+                    if file_uploader is None:
+                        return
+                        # raise forms.ValidationError("There is no file in the field.")
                     file_path = file_uploader.storage.path(file_uploader.real_path)
                     post_info[name] = SimpleUploadedFile(
                         file_uploader.filename,
