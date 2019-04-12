@@ -17,6 +17,7 @@ class FineUploaderUploadForm(forms.Form):
     qqtotalparts = forms.IntegerField(required=False)
     qqtotalfilesize = forms.IntegerField(required=False)
     qqpartbyteoffset = forms.IntegerField(required=False)
+    qqadmin = forms.BooleanField(required=False)
 
 
 class FineUploaderUploadSuccessForm(forms.Form):

@@ -91,7 +91,7 @@ class ChunkedFineUploader(BaseFineUploader):
 
     @property
     def _abs_chunks_path(self):
-        return join(django_settings.MEDIA_ROOT, self.chunks_path)
+        return self.storage.path(self.chunks_path)
 
     @property
     def chunk_file(self):
@@ -99,7 +99,7 @@ class ChunkedFineUploader(BaseFineUploader):
 
     @property
     def chunked(self):
-        return self.total_parts > 1
+        return self.total_parts is not None and self.total_parts > 1
 
     @property
     def is_time_to_combine_chunks(self):

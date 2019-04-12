@@ -7,6 +7,7 @@ from django_fine_uploader.forms import FineUploaderUploadForm
 from django_fine_uploader.views import FineUploaderView
 
 from .models import FineFile
+from .forms import FileFieldWithFineUploaderForm
 
 
 class ExampleView(generic.TemplateView):
@@ -83,3 +84,10 @@ class CustomFineUploaderView(FineUploaderView):
             # Let's save in database?
             FineFile.objects.create(fine_file=self.upload.real_path)
         return self.make_response(data)
+
+
+class ExampleWidgetView(generic.FormView):
+    """Example of using the form_class using the FineUploaderWidget.
+    """
+    template_name = 'myapp/example_form.html'
+    form_class = FileFieldWithFineUploaderForm
