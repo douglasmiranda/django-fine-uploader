@@ -10,7 +10,6 @@ Tests for `django-fine-uploader` models module.
 
 from django.test import TestCase
 
-from django_fine_uploader import models
 
 
 class TestDjango_fine_uploader(TestCase):
