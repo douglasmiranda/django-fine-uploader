@@ -1,7 +1,5 @@
-import os
 import shutil
 
-from django import forms
 from django.db import models
 from django.db.models import FileField
 from django.contrib import admin
