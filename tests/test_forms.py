@@ -11,7 +11,7 @@ from django.test.client import Client
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 
-from django_fine_uploader import views, settings, fineuploader
+from django_fine_uploader import settings, views
 from django_fine_uploader.forms import FineUploaderUploadForm
 
 
