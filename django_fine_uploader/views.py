@@ -106,7 +106,7 @@ class FineUploaderDeleteView(generic.View):
         """
         file_storage = utils.import_class(settings.FILE_STORAGE)()
         uuid = kwargs.get('uuid')
-        path = join(settings.UPLOAD_DIR, uuid)
+        path = join(settings.UPLOAD_DIR, str(uuid))
         if file_storage.exists(path):
             full_path = file_storage.path(path)
             try:
