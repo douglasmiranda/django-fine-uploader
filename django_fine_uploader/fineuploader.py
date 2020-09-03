@@ -42,6 +42,9 @@ class BaseFineUploader(object):
         file_storage = utils.import_class(self.storage_class)
         return file_storage()
 
+    def rmtree_containing_final_file(self):
+        shutil.rmtree(self.storage.path(self.file_path))
+
     def save(self):
         raise NotImplementedError
 

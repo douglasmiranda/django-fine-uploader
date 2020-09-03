@@ -1,5 +1,8 @@
+import os
+
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.core.files import File
 from django.views import generic
 
 from django_fine_uploader.fineuploader import SimpleFineUploader
@@ -81,8 +84,12 @@ class CustomFineUploaderView(FineUploaderView):
         data = {'success': True}
         if self.upload.finished:
             data['file_url'] = self.upload.url
-            # Let's save in database?
-            FineFile.objects.create(fine_file=self.upload.real_path)
+            filename = os.path.split(self.upload.real_path)[1]
+            with self.upload.storage.open(self.upload.real_path, 'rb') as f:
+                file = File(f, name=filename)
+                # Let's save in database?
+                FineFile.objects.create(fine_file=file)
+            self.upload.rmtree_containing_final_file()
         return self.make_response(data)
 
 

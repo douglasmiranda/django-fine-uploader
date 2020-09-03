@@ -4,7 +4,10 @@ from django.db import models
 
 
 def file_using_key_path(instance, filename):
-    return '{0}/{1}'.format(instance.key, filename)
+    if instance.key is not None and len(instance.key) > 0:
+        return 'fine_files/{0}/{1}'.format(instance.key, filename)
+    else:
+        return 'fine_files/{}'.format(filename)
 
 
 class FineFile(models.Model):
