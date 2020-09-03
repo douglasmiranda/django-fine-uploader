@@ -1,7 +1,7 @@
-from django.conf.urls import url
+from django.urls import path
 from . import views
 
 
 urlpatterns = [
-    url(r'^widget/$', view=views.ExampleWidgetView.as_view()),
+    path('widget/', views.ExampleWidgetView.as_view(), name='widget'),
 ]

@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls.static import static
-from django.conf.urls import url, include
+from django.urls import path, include
 from django.contrib import admin
 from django.conf import settings
 
@@ -22,16 +22,16 @@ from myapp import views
 
 urlpatterns = [
     # The Django Admin
-    url(r'^admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 
     # django-fine-uploader default urls
-    url(r'^fine-uploader/', include('django_fine_uploader.urls', namespace='django_fine_uploader')),
+    path('fine-uploader/', include('django_fine_uploader.urls', namespace='django_fine_uploader')),
 
     # our custom views on myapp app
-    url(r'^$', view=views.ExampleView.as_view(), name='home'),
-    url(r'^widget/', view=views.ExampleWidgetView.as_view(), name='home-widget'),
-    url(r'^upload-1/$', view=views.MyAppUploaderView.as_view(), name='uploader-1'),
-    url(r'^upload-2/$', view=views.NotConcurrentUploaderView.as_view(), name='uploader-2'),
-    url(r'^upload-3/$', view=views.SimpleCustomUploaderView.as_view(), name='uploader-3'),
-    url(r'^upload-4/$', view=views.CustomFineUploaderView.as_view(), name='uploader-4'),
+    path('', view=views.ExampleView.as_view(), name='home'),
+    path('widget/', view=views.ExampleWidgetView.as_view(), name='home-widget'),
+    path('upload-1/', view=views.MyAppUploaderView.as_view(), name='uploader-1'),
+    path('upload-2/', view=views.NotConcurrentUploaderView.as_view(), name='uploader-2'),
+    path('upload-3/', view=views.SimpleCustomUploaderView.as_view(), name='uploader-3'),
+    path('upload-4/', view=views.CustomFineUploaderView.as_view(), name='uploader-4'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
